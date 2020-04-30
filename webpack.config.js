@@ -4,6 +4,9 @@ const {
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webjumpOverrideMappingPlugin = require('override-mapping-webpack-plugin');
+const overrideMapping = require('./override-mapping');
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
 module.exports = async env => {
     const mediaUrl = await getMediaURL();
@@ -45,6 +48,13 @@ module.exports = async env => {
                 graphqlQueries: true,
                 rootComponents: true,
                 upward: true
+            },
+            '@webjump/colmeia': {
+                cssModules: true,
+                esModules: true,
+                graphqlQueries: false,
+                rootComponents: false,
+                upward: false
             }
         },
         env
@@ -68,6 +78,20 @@ module.exports = async env => {
             UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
             STORE_NAME: JSON.stringify('Venia')
         }),
+
+        new webjumpOverrideMappingPlugin(overrideMapping),
+
+        new SVGSpritemapPlugin(['src/assets/icons/**/*.svg'], {
+            output: {
+                filename: 'sprites.svg',
+            },
+            sprite: {
+                generate: {
+                    use: true
+                }
+            }
+        }),
+
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './template.html',
