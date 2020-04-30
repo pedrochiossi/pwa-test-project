@@ -52,7 +52,7 @@ module.exports = async env => {
             '@webjump/colmeia': {
                 cssModules: true,
                 esModules: true,
-                graphqlQueries: false,
+                graphqlQueries: true,
                 rootComponents: false,
                 upward: false
             }
@@ -68,6 +68,28 @@ module.exports = async env => {
      * https://webpack.js.org/configuration/module/#modulenoparse
      */
     clientConfig.module.noParse = [/braintree\-web\-drop\-in/];
+    clientConfig.module.rules.push({
+        rules : [
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: ['file-loader']
+            },
+            {
+                test: /\.s[ca]ss$/,
+                use: [
+                  'style-loader',
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      modules: true,
+                      sourceMap: true,
+                    },
+                  },
+                  'sass-loader',
+                ],
+            }
+        ]
+    });
     clientConfig.plugins = [
         ...clientConfig.plugins,
         new DefinePlugin({

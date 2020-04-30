@@ -1,0 +1,42 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 120px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-transform: uppercase;
+  color: #c70041;
+
+  h1 {
+    color: black;
+    margin: 0 20px;
+  }
+
+  h2 {
+    font-weight: 500;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  svg {
+    margin-left: 5px;
+    width: 10px;
+  }
+}
+
+.icons {
+  svg {
+    margin-right: 20px;
+    width: 34px;
+
+    &:hover {
+      cursor: pointer;
+      color: #c70041;
+    }
+  }
+}
