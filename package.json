@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@webjump/colmeia": "bitbucket:webjump/colmeia",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "override-mapping-webpack-plugin": "bitbucket:webjump/override-mapping-webpack-plugin",
     "sass-loader": "^8.0.2"
   },
